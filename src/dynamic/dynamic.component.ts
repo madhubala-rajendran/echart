@@ -32,7 +32,9 @@ export class dynamicComponent{
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.http.get<resposeModel[]>('http://echart.runasp.net/api/GoldRate/april')
+    // this.http.get<resposeModel[]>('https://localhost:7052/api/GoldRate/april')
+    this.http.get<resposeModel[]>('https://echart.runasp.net/api/GoldRate/april')
+
       .subscribe(res => {
         if(res.length!=0)
         {
