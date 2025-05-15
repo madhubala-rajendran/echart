@@ -8,7 +8,6 @@ import { BarChart,LineChart,PieChart ,ScatterChart} from 'echarts/charts';
 import { GridComponent,TitleComponent, TooltipComponent ,LegendComponent} from 'echarts/components';
 import { CanvasRenderer } from 'echarts/renderers';
 import { CommonModule } from '@angular/common';
-import { color } from 'echarts';
 echarts.use([BarChart, GridComponent, CanvasRenderer,LineChart,PieChart,ScatterChart, TitleComponent, TooltipComponent,LegendComponent]);
 
 export interface resposeModel
@@ -26,14 +25,14 @@ export interface resposeModel
     provideEchartsCore({ echarts }),
   ]
 })
-export class dynamicComponent implements OnInit {
+export class dynamicComponent{
   chartOptions: any;
   chartDataPoints : resposeModel[]=[];
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.http.get<resposeModel[]>('https://localhost:7052/api/GoldRate/april')
+    this.http.get<resposeModel[]>('https://echart.runasp.net/api/GoldRate/april')
       .subscribe(res => {
         if(res.length!=0)
         {
@@ -57,13 +56,11 @@ populateChart()
       trigger: 'axis'
     },
     legend: {
-      data: ['Gold Rate Change'], // Name must match the `name` field in your series
-      top: '10%', // Optional: position the legend
-      textStyle: {
-        color: '#ffffff' // Change to match your theme (white in dark mode, etc.)
-      }
+      data: ['Gold Rate Change',"Gold Rate"],
+      top: '7%',
+     
     },
-    xAxis: {
+     xAxis: {
       type: 'category',
       name: 'Date',
       nameLocation: 'middle',
@@ -100,7 +97,7 @@ populateChart()
     {
       name: 'Gold Rate Change',
       data: this.chartDataPoints.map((item, index, arr) => {
-        if (index === 0) return 0; // No previous value for the first entry
+        if (index === 0) return 0; 
         return item.price - arr[index - 1].price;
       }),
       type: 'line',

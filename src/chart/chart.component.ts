@@ -60,10 +60,6 @@ import { FormsModule } from '@angular/forms';
           trigger: 'item',
           formatter: '{b}: {c} ({d}%)'
         },
-        legend: {
-          orient: 'vertical',
-          left: 'left'
-        },
         series: [
           {
             name: 'Gold Price',
@@ -85,6 +81,10 @@ import { FormsModule } from '@angular/forms';
         title: {
           text: 'Month-wise Gold Rate Analysis (2024)',
           left: 'center'
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: '{b}: {c}'
         },
         xAxis: {
           name: 'Month',
